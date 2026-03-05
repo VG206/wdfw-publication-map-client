@@ -214,14 +214,11 @@ def build_html(payload: dict) -> str:
 
     .stats {{ display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }}
     .chip {{ background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 13px; color: #254756; }}
-    .chip-filter {{ cursor: pointer; border-width: 2px; font-weight: 700; transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease; }}
+    .chip-filter {{ cursor: pointer; border-width: 2px; font-weight: 700; transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease; display: inline-flex; align-items: center; gap: 7px; }}
     .chip-filter:hover {{ transform: translateY(-1px); box-shadow: 0 3px 8px rgba(16, 61, 77, 0.14); }}
     .chip-filter.active {{ background: var(--chip-color, #294955); border-color: var(--chip-color, #294955); color: #fff; }}
     .chip-filter.inactive {{ background: #fff; border-color: #bed0d7; color: #3b5967; opacity: 0.9; }}
-
-    .legend {{ display: flex; gap: 12px; flex-wrap: wrap; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }}
-    .legend-item {{ display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #254756; }}
-    .dot {{ width: 11px; height: 11px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.25); display: inline-block; }}
+    .chip-dot {{ width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.25); display: inline-block; flex: 0 0 auto; }}
 
     .map-shell {{ flex: 1; min-height: 480px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #dfe8eb; box-shadow: 0 10px 24px rgba(13, 55, 69, 0.12); }}
     #map {{ width: 100%; height: 100%; }}
@@ -292,13 +289,6 @@ def build_html(payload: dict) -> str:
     </section>
 
     <section class=\"stats\" id=\"stats\"></section>
-
-    <section class=\"legend\" aria-label=\"Legend\">
-      <span class=\"legend-item\"><span class=\"dot\" style=\"background:var(--fish)\"></span>Fish</span>
-      <span class=\"legend-item\"><span class=\"dot\" style=\"background:var(--wildlife)\"></span>Wildlife</span>
-      <span class=\"legend-item\"><span class=\"dot\" style=\"background:var(--habitat)\"></span>Habitat</span>
-      <span class=\"legend-item\"><span class=\"dot\" style=\"background:var(--other)\"></span>Other</span>
-    </section>
 
     <section class=\"map-shell\">
       <div id=\"map\"></div>
@@ -401,7 +391,13 @@ def build_html(payload: dict) -> str:
         b.type = 'button';
         b.className = `chip chip-filter ${{activeTypeFilters.has(t) ? 'active' : 'inactive'}}`;
         b.style.setProperty('--chip-color', colors[t] || '#294955');
-        b.textContent = `${{t}}: ${{typeCounts[t] || 0}}`;
+        const dot = document.createElement('span');
+        dot.className = 'chip-dot';
+        dot.style.background = colors[t] || '#294955';
+        const label = document.createElement('span');
+        label.textContent = `${{t}}: ${{typeCounts[t] || 0}}`;
+        b.appendChild(dot);
+        b.appendChild(label);
         b.title = `Toggle ${{t}}`;
         b.addEventListener('click', () => {{
           if (activeTypeFilters.has(t)) activeTypeFilters.delete(t);
