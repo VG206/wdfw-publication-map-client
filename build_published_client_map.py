@@ -224,6 +224,25 @@ def build_html(payload: dict) -> str:
     .map-shell {{ flex: 1; min-height: 480px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #dfe8eb; box-shadow: 0 10px 24px rgba(13, 55, 69, 0.12); }}
     #map {{ width: 100%; height: 100%; }}
 
+    .marker-cluster-custom {{ background: transparent; }}
+    .marker-cluster-custom .cluster-bubble {{
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      border: 2px solid #7fb694;
+      color: #0f352c;
+      box-shadow: 0 3px 8px rgba(17, 65, 53, 0.22);
+    }}
+    .marker-cluster-custom.cluster-level-1 .cluster-bubble {{ background: #d8f3dc; border-color: #95d5b2; }}
+    .marker-cluster-custom.cluster-level-2 .cluster-bubble {{ background: #95d5b2; border-color: #52b788; }}
+    .marker-cluster-custom.cluster-level-3 .cluster-bubble {{ background: #52b788; border-color: #2d6a4f; color: #0c2f27; }}
+    .marker-cluster-custom.cluster-level-4 .cluster-bubble {{ background: #2d6a4f; border-color: #1b4332; color: #f3fff8; }}
+
     .leaflet-popup-content-wrapper {{ border-radius: 10px; }}
     .leaflet-popup-content {{ margin: 12px 14px; font-size: 13px; line-height: 1.45; }}
     .leaflet-popup-content a {{ color: #0f5c8e; }}
@@ -318,6 +337,19 @@ def build_html(payload: dict) -> str:
       showCoverageOnHover: false,
       spiderfyOnMaxZoom: true,
       maxClusterRadius: 42,
+      iconCreateFunction: function(cluster) {{
+        const count = cluster.getChildCount();
+        let level = 'cluster-level-1';
+        if (count >= 100) level = 'cluster-level-4';
+        else if (count >= 50) level = 'cluster-level-3';
+        else if (count >= 10) level = 'cluster-level-2';
+
+        return L.divIcon({{
+          html: `<div class="cluster-bubble"><span>${{count}}</span></div>`,
+          className: `marker-cluster marker-cluster-custom ${{level}}`,
+          iconSize: L.point(42, 42),
+        }});
+      }},
     }});
     map.addLayer(clusters);
 
