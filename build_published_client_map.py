@@ -207,9 +207,9 @@ def build_html(payload: dict) -> str:
 
     .controls {{ background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 10px; grid-template-columns: 2.2fr 1.2fr 0.9fr 0.9fr auto; align-items: end; }}
     .field label {{ display: block; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: #355766; margin-bottom: 5px; }}
-    .field input, .field select {{ width: 100%; border: 1px solid #b8c8cf; border-radius: 8px; padding: 9px 10px; font-size: 14px; background: #fff; }}
+    .field input, .field select {{ width: 100%; height: 40px; border: 1px solid #b8c8cf; border-radius: 8px; padding: 9px 10px; font-size: 14px; background: #fff; }}
     .field input:focus, .field select:focus {{ outline: none; border-color: #4f7f91; box-shadow: 0 0 0 3px rgba(79,127,145,0.15); }}
-    .btn {{ border: 1px solid #8ba7b2; border-radius: 9px; background: #e7f0f4; color: #173542; padding: 9px 12px; cursor: pointer; font-weight: 600; }}
+    .btn {{ height: 40px; border: 1px solid #8ba7b2; border-radius: 9px; background: #e7f0f4; color: #173542; padding: 9px 12px; cursor: pointer; font-weight: 600; }}
     .btn:hover {{ background: #dcebf1; }}
 
     .stats {{ display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }}
