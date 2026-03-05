@@ -459,16 +459,16 @@ def build_html(payload: dict) -> str:
           fillOpacity: 0.86,
         }});
 
-        const speciesTxt = (p.species && p.species.length) ? p.species.join(', ') : 'Unknown';
+        const popupTitle = p.source_url
+          ? `<a href="${{p.source_url}}" target="_blank" rel="noopener noreferrer"><b>${{p.title || 'Publication'}}</b></a>`
+          : `<b>${{p.title || 'Publication'}}</b>`;
         marker.bindPopup(
-          `<b>${{p.title || 'Publication'}}</b><br>` +
+          `${{popupTitle}}<br>` +
           `<b>Publication ID:</b> ${{p.publication_id || 'Unknown'}}<br>` +
           `<b>Location:</b> ${{p.location || 'Unknown'}}<br>` +
-          `<b>Species:</b> ${{speciesTxt}}<br>` +
-          `<b>Study year:</b> ${{p.study_year || 'Unknown'}}<br>` +
-          `<b>Publication date:</b> ${{p.publication_date || 'Unknown'}}<br>` +
           `<b>Type:</b> ${{p.main_tag || 'Other'}}<br>` +
-          (p.source_url ? `<a href="${{p.source_url}}" target="_blank" rel="noopener noreferrer">Open publication</a>` : '')
+          `<b>Publication date:</b> ${{p.publication_date || 'Unknown'}}<br>` +
+          ''
         );
         clusters.addLayer(marker);
       }}
