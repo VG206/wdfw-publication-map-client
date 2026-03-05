@@ -264,7 +264,6 @@ def build_html(payload: dict) -> str:
       </a>
       <div class=\"brand-actions\">
         <a href=\"https://wdfw.wa.gov/publications\" target=\"_blank\" rel=\"noopener noreferrer\">Publications</a>
-        <span>Client Edition</span>
       </div>
     </div>
     <div class=\"menu-row\">
