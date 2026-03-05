@@ -216,9 +216,10 @@ def build_html(payload: dict) -> str:
     .chip {{ background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 13px; color: #254756; }}
     .chip-filter {{ cursor: pointer; border-width: 2px; font-weight: 700; transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease; display: inline-flex; align-items: center; gap: 7px; }}
     .chip-filter:hover {{ transform: translateY(-1px); box-shadow: 0 3px 8px rgba(16, 61, 77, 0.14); }}
-    .chip-filter.active {{ background: var(--chip-color, #294955); border-color: var(--chip-color, #294955); color: #fff; }}
-    .chip-filter.inactive {{ background: #fff; border-color: #bed0d7; color: #3b5967; opacity: 0.9; }}
-    .chip-dot {{ width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.25); display: inline-block; flex: 0 0 auto; }}
+    .chip-filter.active {{ background: #fff; border-color: #8fa8b3; color: #173542; }}
+    .chip-filter.inactive {{ background: #fff; border-color: #c7d6dd; color: #56717d; }}
+    .chip-dot {{ width: 10px; height: 10px; border-radius: 50%; border: 1px solid #b8c7ce; background: #d5e0e5; display: inline-block; flex: 0 0 auto; }}
+    .chip-filter.active .chip-dot {{ background: var(--chip-color, #294955); border-color: rgba(0,0,0,0.28); }}
 
     .map-shell {{ flex: 1; min-height: 480px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #dfe8eb; box-shadow: 0 10px 24px rgba(13, 55, 69, 0.12); }}
     #map {{ width: 100%; height: 100%; }}
@@ -393,7 +394,6 @@ def build_html(payload: dict) -> str:
         b.style.setProperty('--chip-color', colors[t] || '#294955');
         const dot = document.createElement('span');
         dot.className = 'chip-dot';
-        dot.style.background = colors[t] || '#294955';
         const label = document.createElement('span');
         label.textContent = `${{t}}: ${{typeCounts[t] || 0}}`;
         b.appendChild(dot);
