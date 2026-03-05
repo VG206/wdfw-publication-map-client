@@ -283,7 +283,7 @@ def build_html(payload: dict) -> str:
   <main class=\"content\">
     <section class=\"hero\">
       <h1>WDFW Publication Map</h1>
-      <p>Interactive public map of publication-linked coordinate points across Washington. This production view includes map exploration only and excludes internal verification tooling.</p>
+      <p>Interactive public map of publication-linked coordinate points across Washington.</p>
     </section>
 
     <section class=\"controls\" aria-label=\"Map filters\">
