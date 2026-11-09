@@ -328,8 +328,9 @@ def build_html(payload: dict) -> str:
     }};
 
     const map = L.map('map', {{ zoomControl: true }}).setView([47.45, -120.7], 7);
-    L.tileLayer('https://{{s}}.basemaps.cartocdn.com/light_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
-      attribution: '&copy; OpenStreetMap &copy; CARTO'
+    L.tileLayer('https://tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }}).addTo(map);
 
     const clusters = L.markerClusterGroup({{
@@ -476,7 +477,7 @@ def build_html(payload: dict) -> str:
 
       if (filtered.length) {{
         const bounds = L.latLngBounds(filtered.map(p => [p.lat, p.lon]));
-        map.fitBounds(bounds.pad(0.04));
+        map.fitBounds(bounds.pad(0.04), {{ maxZoom: 16 }});
       }}
     }}
 
